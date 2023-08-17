@@ -70,7 +70,6 @@ const ChatScreen = () => {
 
 
     const LoadAllMessage = async(conversation) => {
-        console.log(conversation, 'sssssssssssssssssssssssssssssssssssss');
         setConversation(conversation)
         try {
           const res = await tutorApiToken.get(`message?id=${conversation}`)
@@ -132,7 +131,6 @@ const ChatScreen = () => {
             message,
           };
           socket.emit('message', messageData);
-          console.log(conversation, 'kkkkkkkkkkkkkkkkkkkkkkkkk');
           await LoadAllMessage(conversation)
         } catch (error) {
           console.error(error);
