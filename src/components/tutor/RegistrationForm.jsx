@@ -84,6 +84,7 @@ export default function RegistrationForm({ tutor, profile }) {
           country,
           city,
           zip,
+          about,
         }).unwrap();
 
         if (res) {
@@ -347,10 +348,10 @@ export default function RegistrationForm({ tutor, profile }) {
                 name="about"
                 label="about"
                 fullWidth
-                autoComplete="about"
                 variant="standard"
+                autoComplete="about"
                 value={profile ? tutorDetails.about : formData.about}
-                onChange={inputChangeHandler}
+                onChange={inputChangeHandler}              
               />
               {errors.about && (
                 <FormHelperText error={true}>{errors.about}</FormHelperText>
