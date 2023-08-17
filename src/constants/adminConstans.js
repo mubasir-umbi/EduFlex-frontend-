@@ -1,1 +1,1 @@
-export const ADMIN_URL =  'http://127.0.0.1:4004/api/admin/'
+export const ADMIN_URL =  'https://eduflex.site/api/admin/'
