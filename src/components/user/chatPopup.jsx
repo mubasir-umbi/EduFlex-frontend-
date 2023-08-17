@@ -16,8 +16,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ENDPOINT = "http://localhost:4004"
-let socket, selectedChatCompare
+
+let socket
 
 export default function ChatPopUp({tutorId, tutor}) {
   const [open, setOpen] = React.useState(false);
@@ -34,7 +34,7 @@ export default function ChatPopUp({tutorId, tutor}) {
 
 
   React.useEffect(() => {
-    socket = io(ENDPOINT)
+    socket = io(process.env.END_POINT)
     socket.emit("setup", userInfo)
     // socket.on('connection', ()=> setSocketConnected(true))
 
@@ -87,7 +87,7 @@ export default function ChatPopUp({tutorId, tutor}) {
   /// on sending message handler
 
 
-
+ 
   // const handleSendMessage = async (message) => {
   //   try {
   //     const messageData = {

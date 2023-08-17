@@ -1,1 +1,1 @@
-export const ADMIN_URL =  'https://eduflex.site/api/admin/'
+export const ADMIN_URL =  `${process.env.END_POINT}/api/admin/`

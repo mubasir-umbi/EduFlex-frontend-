@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   List,
   ListItem,
   ListItemText,
   ListSubheader,
   Paper,
-  TextField,
-  Typography,
 } from "@mui/material";
 import SideBar from "../../components/tutor/sideBar";
 import { Box } from "@mui/system";
@@ -17,10 +14,7 @@ import  io  from "socket.io-client";
 import Chat from '../chat'
 
 
-const ENDPOINT = "https://eduflex.site"
 let socket
-
-
 
 const UserList = ({ users, getChatHistory }) => (
 
@@ -84,7 +78,7 @@ const ChatScreen = () => {
       }
 
       React.useEffect(() => {
-        socket = io(ENDPOINT)
+        socket = io(process.env.END_POINT)
         socket.emit("setup", tutorInfo.res)
         // socket.on('connection', ()=> setSocketConnected(true))
     

@@ -1,2 +1,2 @@
-export const USERS_URL = 'https://eduflex.site/api/users/'
-export const CHAT_URL = 'https://eduflex.site/api/chat/'
+export const USERS_URL = `${process.env.END_POINT}/api/users/`
+export const CHAT_URL = `${process.env.END_POINT}/api/chat/`

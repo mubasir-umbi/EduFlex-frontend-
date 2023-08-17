@@ -1,1 +1,1 @@
-export const TUTOR_URL =  'https://eduflex.site/api/tutor/'
+export const TUTOR_URL =  `${process.env.END_POINT}/api/tutor/`
