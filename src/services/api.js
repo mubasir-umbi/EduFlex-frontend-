@@ -24,7 +24,6 @@ export const chatApi = axios.create({
 
 
 
-// Create an instance of Axios with default headers
 export const userApiToken = axios.create({
   baseURL: USERS_URL,
 });
