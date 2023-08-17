@@ -6,10 +6,12 @@ import { useLoginMutation } from "../../slices/userSlices/usersApiSlice";
 import { setCredentials } from "../../slices/userSlices/authSlice"; 
 import { toast } from "react-toastify";
 import LoginForm from "../../components/LoginForm";
+import { userApi } from "../../services/api";
 
 
 
 const LoginScreen = () => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,8 +21,8 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      if (userInfo.isAdmin) {
-        navigate("/admin/dashboard");
+      if (userInfo.isAdmin){
+        navigate("/admin/dashboard")
       } else {
         navigate("/");
       }
@@ -30,9 +32,11 @@ const LoginScreen = () => {
   const handleSubmit = async (event, email, password) => {
     event.preventDefault();
     try {
-      const res = await login({ email, password }).unwrap();
+      // const res = await login({ email, password }).unwrap();
+      const res = await userApi.post('auth', { email, password } )
+      console.log(res, 'llllllllllllllllllllllllllllllllllllllllllll');
       dispatch(setCredentials({ ...res }));
-
+     console.log(res, 'am ressssss');
       if (res.isAdmin) {
         navigate("/admin/dashboard");
       } else {
@@ -41,7 +45,7 @@ const LoginScreen = () => {
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
-  };
+  }
 
   return (
     <LoginForm
