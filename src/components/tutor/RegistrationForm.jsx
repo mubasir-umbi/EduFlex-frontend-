@@ -343,11 +343,11 @@ export default function RegistrationForm({ tutor, profile }) {
             <Grid item xs={12}>
               <TextField
                 required
-                id="aboutyou"
-                name="aboutyou"
-                label="aboutyou"
+                id="about"
+                name="about"
+                label="about"
                 fullWidth
-                autoComplete="aboutyou"
+                autoComplete="about"
                 variant="standard"
                 value={profile ? tutorDetails.about : formData.about}
                 onChange={inputChangeHandler}
