@@ -32,8 +32,8 @@ const LoginScreen = () => {
   const handleSubmit = async (event, email, password) => {
     event.preventDefault();
     try {
-      // const res = await login({ email, password }).unwrap();
-      const res = await userApi.post('auth', { email, password } )
+      const res = await login({ email, password }).unwrap();
+      // const res = await userApi.post('auth', { email, password } )
       console.log(res, 'llllllllllllllllllllllllllllllllllllllllllll');
       dispatch(setCredentials({ ...res }));
      console.log(res, 'am ressssss');
