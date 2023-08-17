@@ -55,7 +55,7 @@ const ChatScreen = () => {
 
   const loadChatList = async () => {
    try {
-    const res = await tutorApiToken.get(`chats?id=${sender}`)
+    const res = await tutorApi.get(`chats?id=${sender}`)
     setUsers(res?.data)
     console.log(res.data, 'res dataaaaaaaxxxxxxxxxxxxxxxxxxxxxx');
    } catch (error) {
@@ -72,7 +72,7 @@ const ChatScreen = () => {
     const LoadAllMessage = async(conversation) => {
         setConversation(conversation)
         try {
-          const res = await tutorApiToken.get(`message?id=${conversation}`)
+          const res = await chatApi.get(`message?id=${conversation}`)
           if(res){
             setMessages(res.data)
             console.log(res.data, 'am all message');
