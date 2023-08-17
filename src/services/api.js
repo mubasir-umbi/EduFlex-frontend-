@@ -2,7 +2,6 @@ import axios from "axios";
 import { TUTOR_URL } from "../constants/tutorConstants";
 import { ADMIN_URL } from "../constants/adminConstans";
 import { CHAT_URL, USERS_URL } from "../constants/usersConstants";
-import {useSelector} from 'react-redux'
 
 
 // axios.defaults.withCredentials = true
@@ -38,7 +37,6 @@ const userInfo = JSON.parse(localStorage.getItem('userInfo'))
 userApiToken.interceptors.request.use(
   (config) => {
     const token =  userInfo.token
-    console.log(token, 'am tokennnnn');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -58,7 +56,6 @@ export const adminApi = axios.create({
 adminApi.interceptors.request.use(
   (config) => {
     const token =  userInfo?.token
-    console.log(token, 'am tokennnnn');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -73,7 +70,6 @@ adminApi.interceptors.request.use(
 userApiToken.interceptors.request.use(
   (config) => {
     const token =  userInfo?.token
-    console.log(token, 'am tokennnnn');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -90,13 +86,10 @@ export const tutorApiToken = axios.create({
 })
 
 const tutorInfo = JSON.parse(localStorage.getItem('tutorInfo'))
-console.log(tutorInfo, 'am tutorInfo,,,');
-console.log(tutorInfo?.res?.token, 'am tokennnnn');
 
 tutorApiToken.interceptors.request.use(
   (config) => {
     const token =  tutorInfo?.res?.token
-    console.log(token, 'am tokennnnn tutor');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
