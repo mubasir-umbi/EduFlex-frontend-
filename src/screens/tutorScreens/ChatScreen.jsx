@@ -17,7 +17,7 @@ import  io  from "socket.io-client";
 import Chat from '../chat'
 
 
-const ENDPOINT = "http://localhost:4004"
+const ENDPOINT = "https://eduflex.site"
 let socket
 
 
@@ -28,7 +28,6 @@ const UserList = ({ users, getChatHistory }) => (
     style={{ flex: 1, overflowY: "auto", width: '30%' }}
     elevation={3}
   >
-    {console.log(users, 'kkkkkkkkkkkkkkkkkkkkkkkkk')}
     <List>
       {users.map((user, index) => (
         <ListItem
@@ -52,7 +51,7 @@ const ChatScreen = () => {
   const [conversation, setConversation] = useState("");
 
   const {tutorInfo} = useSelector(state => state.tutorAuth)
-  const sender = tutorInfo.res.id
+  const sender = tutorInfo?.res?.id
 
   const loadChatList = async () => {
    try {
