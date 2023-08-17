@@ -1,1 +1,3 @@
-export const TUTOR_URL =  `${process.env.END_POINT}/api/tutor/`
+import { END_POINT } from "./usersConstants"
+
+export const TUTOR_URL =  `${END_POINT}/api/tutor/`

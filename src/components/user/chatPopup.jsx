@@ -10,6 +10,7 @@ import { chatApi } from "../../services/api";
 import { useSelector } from "react-redux";
 import ChatIcon from '@mui/icons-material/Chat';
 import  io  from "socket.io-client";
+import { END_POINT } from "../../constants/usersConstants";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -34,7 +35,7 @@ export default function ChatPopUp({tutorId, tutor}) {
 
 
   React.useEffect(() => {
-    socket = io(process.env.END_POINT)
+    socket = io(END_POINT)
     socket.emit("setup", userInfo)
     // socket.on('connection', ()=> setSocketConnected(true))
 

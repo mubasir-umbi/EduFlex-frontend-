@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { chatApi, tutorApi, tutorApiToken } from "../../services/api";
 import  io  from "socket.io-client";
 import Chat from '../chat'
+import { END_POINT } from "../../constants/usersConstants";
 
 
 let socket
@@ -78,7 +79,7 @@ const ChatScreen = () => {
       }
 
       React.useEffect(() => {
-        socket = io(process.env.END_POINT)
+        socket = io(END_POINT)
         socket.emit("setup", tutorInfo.res)
         // socket.on('connection', ()=> setSocketConnected(true))
     
