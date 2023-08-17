@@ -16,7 +16,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ENDPOINT = "http://localhost:4001"
+const ENDPOINT = "http://localhost:4004"
 let socket, selectedChatCompare
 
 export default function ChatPopUp({tutorId, tutor}) {

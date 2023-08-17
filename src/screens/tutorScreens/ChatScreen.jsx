@@ -17,7 +17,7 @@ import  io  from "socket.io-client";
 import Chat from '../chat'
 
 
-const ENDPOINT = "http://localhost:4001"
+const ENDPOINT = "http://localhost:4004"
 let socket
 
 
