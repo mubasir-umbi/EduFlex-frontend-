@@ -19,22 +19,21 @@ const LoginScreen = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (userInfo) {
-      if (userInfo.isAdmin){
-        navigate("/admin/dashboard")
-      } else {
-        navigate("/");
-      }
-    }
-  }, [navigate, userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     if (userInfo.isAdmin){
+  //       navigate("/admin/dashboard")
+  //     } else {
+  //       navigate("/");
+  //     }
+  //   }
+  // }, [navigate, userInfo]);
 
   const handleSubmit = async (event, email, password) => {
     event.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
       // const res = await userApi.post('auth', { email, password } )
-      console.log(res, 'llllllllllllllllllllllllllllllllllllllllllll');
       dispatch(setCredentials({ ...res }));
      console.log(res, 'am ressssss');
       if (res.isAdmin) {

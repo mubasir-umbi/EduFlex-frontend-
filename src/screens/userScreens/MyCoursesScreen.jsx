@@ -28,6 +28,7 @@ const MyCoursesScreen = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
   const userId = userInfo._id;
+  console.log(userInfo, userId, 'user iddddddddddddddddddddddddddddddd');
   const authToken = userInfo?.token;
 
   const submitHandler = (rating, review, courseId) => {
@@ -97,7 +98,7 @@ const MyCoursesScreen = () => {
           ml={"auto"}
           mr={"auto"}
         >
-          My lerning
+          My learning
         </Typography>
 
         <Divider sx={{ color: "#fff" }} />

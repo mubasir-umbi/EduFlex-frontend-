@@ -39,21 +39,14 @@ const LessonPlayScreen = () => {
   const [videoProgress, setVideoProgress] = useState(0);
   const [lessonStatus, setLessonStatus] = useState({});
   const [tutor, setTutor] = useState("");
+  const [completedLessons, setCompletedLessons] = useState([])
+  // const [completedIndex, setCompletedIndex] = useState(-1);
 
-  const handleLessonComplete = (lessonId) => {
-    if (lessonId === lesson._id) {
-      setLessonStatus((prevStatus) => ({
-        ...prevStatus,
-        [lessonId]: { id: lessonId, completed: true },
-      }));
-    }
-  };
 
   const { courseId } = useParams();
 
   const { userInfo } = useSelector((state) => state.auth);
-  const userId = userInfo._id;
-  const authToken = userInfo?.token;
+  const userId = userInfo?._id;
 
   const handleReplies = (i) => {
     const newOpen = [...open];
@@ -73,26 +66,14 @@ const LessonPlayScreen = () => {
     setReply(newReply);
   };
 
-  const updateVideoProgress = async (progress) => {
-    console.log(progress);
-    // try {
-    //   await axios.post('/api/updateVideoProgress', {
-    //     videoId: lesson._id, // Assuming lesson._id is the video's unique identifier
-    //     progress,
-    //   });
-    // } catch (error) {
-    //   console.error('Error updating video progress', error);
-    // }
-  };
-
-  const progressHandler = (currentTime) => {
-    setVideoProgress((currentTime / lesson.videoDuration) * 100);
-    updateVideoProgress(videoProgress); // Send progress to backend
-  };
 
   const playHandler = (lesson) => {
     setLesson(lesson);
   };
+
+  const setLessoncount = (count) => {
+    console.log(count);
+  }
 
   /// load all questions api call
 
@@ -216,13 +197,39 @@ const LessonPlayScreen = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchCompletedCourse = async() => {
+      const res = await userApi.get(`progress?userId=${userId}&courseId=${courseId}`);
+      console.log(res, 'am from progress restttttttttttttttttttttttttttttttttttt');
+
+      const completed = []
+      res.data.completedLessons.map((lesson, i)=> {
+        // completed.push(lesson._id)
+        completed[i] = lesson._id
+        setCompletedIndex(i)
+      } )
+      setCompletedLessons(completed)
+    }
+    fetchCompletedCourse()
+  }, [])
+
+  const onComplete = async (lessonId,) => {
+    console.log(completedLessons, 'cmpl crs');
+    console.log(lessonId, 'am from progresss');
+    if(completedLessons.includes(lessonId))return
+
+    const res = await userApi.post('progress', {userId, courseId, lessonId})
+    console.log(res);
+    setCompletedLessons(res.data.userProgress.completedLessons)
+  }
+
   return (
     <>
       <Box display={"flex"}>
         <VideoPlayer
           url={lesson.videoUrl}
           lessonId={lesson._id}
-          onComplete={handleLessonComplete}
+          onComplete={onComplete}
         />
         <Box
           style={{ width: "30%" }}
@@ -246,6 +253,8 @@ const LessonPlayScreen = () => {
             height={"auto"}
             des={"p"}
             onPlayHandler={playHandler}
+            completed = {completedLessons}
+            // completedIndex ={completedIndex}
           />
         </Box>
       </Box>

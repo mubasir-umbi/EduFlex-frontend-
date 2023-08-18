@@ -6,14 +6,30 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  CircularProgress,
   Grid,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
+import LockIcon from '@mui/icons-material/Lock';
 
-
-const lessons = ({ courseId, width, height, onPlayHandler, des, status }) => {
+const lessons = ({
+  courseId,
+  width,
+  height,
+  onPlayHandler,
+  des,
+  status,
+  completed,
+}) => {
   const [lessons, setLessons] = useState([]);
+  const [completedIndex, setCompletedIndex] = useState();
 
+  useEffect(() => {
+    setCompletedIndex(completed.length-1)
+  }, [completedIndex,completed ])
+
+console.log(completedIndex, 'iiiiiiiiiiiiiii');
   useEffect(() => {
     const loadLessons = async () => {
       try {
@@ -28,81 +44,88 @@ const lessons = ({ courseId, width, height, onPlayHandler, des, status }) => {
     loadLessons();
   }, [courseId]);
 
+  const percentage = ((completed.length ) / lessons.length) * 100;
+  const formattedPercentage = percentage.toFixed(2);
+
   return (
     <>
-      <Grid item xs={12} md={6} >
-        {lessons.map((lesson) => {
-          return (
-            // <CardActionArea key={lesson._id} component="a">
-            //   <Card sx={{ display: "flex", height: { height }, mb: 1 }}>
-            //     <CardMedia
-            //       component="video"
-            //       sx={{
-            //         width: { width },
-            //         ml: 2,
-            //         display: { xs: "none", sm: "block" },
-            //       }}
-            //       image={lesson.videoUrl}
-            //       alt="imageLabel"
-            //     />
-            //     <CardContent sx={{ flex: 1 }}>
-            //       <Typography variant="p" paragraph m={0}>
-            //         Lesson no: <strong> {lesson.lessonNumber}</strong>
-            //       </Typography>
-            //       <Typography variant={des} color="text.secondary" m={0}>
-            //         {lesson.description}
-            //       </Typography>
+      <Grid item xs={12} md={6}>
+        <Box
+          border={1}
+          p={2}
+          mb={2}
+          mr={1}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <CircularProgress
+            variant="determinate"
+            value={percentage}
+            color={percentage === 100 ? "success" : "primary"}
+            size={40}
+            thickness={5}
+          >
+            <Box
+              position="absolute"
+              top={0}
+              left={0}
+              bottom={0}
+              right={0}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            ></Box>
+          </CircularProgress>
+          <Typography style={{ marginLeft: 25 }}>
+            Completed: {completed.length } of {lessons.length} (
+            {formattedPercentage}%)
+          </Typography>
+        </Box>
 
-            //       <Button
-            //         disabled={status}
-            //         size="small"
-            //         variant="outlined"
-            //         onClick={() => onPlayHandler(lesson)}
-            //         sx={{ borderRadius: 0, mt: 1}}
-            //       >
-            //         Play
-            //       </Button>
-            //     </CardContent>
-            //   </Card>
-            // </CardActionArea>
+        {lessons
+          .sort((a, b) => a.lessonNumber - b.lessonNumber)
+          .map((lesson, index) => {
+            const isCompleted = completed.includes(lesson._id);
+            const isUnlocked = index <= completedIndex; 
+          console.log(isUnlocked, completedIndex, 'unlockkkk');
 
-            <Grid key={lesson._id} item xs={12} md={6}>
-            <CardActionArea component="a">
-              <Card
-                sx={{
-                  display: "flex",
-                  flexDirection: { xs: "column", sm: "row" },
-                  height: { xs: "auto", md: height },
-                  mb: 1,
-                  maxHeight: height, 
-                  overflow: "hidden", 
-                }}
-              >
-                <CardMedia
-                  component="video"
-                  sx={{
-                    width: { xs: "100%", sm: width },
-                    ml: { xs: 0, sm: 2 },
-                    mb: { xs: 2, sm: 0 },
-                    display: { xs: "block", sm: "block" },
-                  }}
-                  image={lesson.videoUrl}
-                  alt="imageLabel"
-                />
-                <CardContent
-                  sx={{
-                    flex: 1,
-                    textAlign: { xs: "center", sm: "left" },
-                    overflowY: "auto",
-                  }}
-                >
-                  <Typography variant="p" paragraph m={0}>
-                    Lesson no: <strong> {lesson.lessonNumber}</strong>
-                  </Typography>
-                  <Typography variant={des} color="text.secondary" m={0}>
-                    {lesson.description}
-                  </Typography>
-  
+            return (
+              <Grid key={lesson._id} item xs={12} md={6}>
+                <CardActionArea component="a">
+                  <Card
+                    sx={{
+                      display: "flex",
+                      flexDirection: { xs: "column", sm: "row" },
+                      height: { xs: "auto", md: height },
+                      mb: 1,
+                      maxHeight: height,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <CardMedia
+                      component="video"
+                      sx={{
+                        width: { xs: "100%", sm: width },
+                        ml: { xs: 0, sm: 2 },
+                        mb: { xs: 2, sm: 0 },
+                        display: { xs: "block", sm: "block" },
+                      }}
+                      image={lesson.videoUrl}
+                      alt="imageLabel"
+                    />
+                    <CardContent
+                      sx={{
+                        flex: 1,
+                        textAlign: { xs: "center", sm: "left" },
+                        overflowY: "auto",
+                      }}
+                    >
+                      <Typography variant="p" paragraph m={0}>
+                        Lesson no: <strong> {lesson.lessonNumber}</strong>
+                      </Typography>
+                      <Typography variant={des} color="text.secondary" m={0}>
+                        {lesson.description}
+                      </Typography>
+                      {/*   
                   <Button
                     disabled={status}
                     size="small"
@@ -111,14 +134,62 @@ const lessons = ({ courseId, width, height, onPlayHandler, des, status }) => {
                     sx={{ borderRadius: 0, mt: 1 }}
                   >
                     Play
-                  </Button>
-                </CardContent>
-              </Card>
-            </CardActionArea>
-          </Grid>
-  
-          );
-        })}
+                  </Button> */}
+                      {/* {isUnlocked ? (
+                        isCompleted ? (
+                          <Button
+                            disabled={status}
+                            size="small"
+                            variant="outlined"
+                            onClick={() => onPlayHandler(lesson)}
+                            sx={{ borderRadius: 0, mt: 1 }}
+                          >
+                            Play
+                          </Button>
+                        ) : (
+                          <Typography  variant="body2" mt={1}>
+                            <LockIcon/>
+                          </Typography>
+                        )
+                      ) : (
+                        <Typography  variant="body2" mt={1}>
+                          <LockIcon/>
+                        </Typography>
+                      )}{" "} */}
+
+                      {isUnlocked && <Button
+                            disabled={status}
+                            size="small"
+                            variant="outlined"
+                            onClick={() => onPlayHandler(lesson)}
+                            sx={{ borderRadius: 0, mt: 1 }}
+                          >
+                            Play
+                          </Button>}
+                      {!isUnlocked &&  <Typography  variant="body2" mt={1}>
+                          <LockIcon style={{ fontSize: '16px' }}/>
+                        </Typography>}
+                      {/* {isCompleted ? (
+                        <Button
+                          disabled={status}
+                          size="small"
+                          variant="outlined"
+                          onClick={() => onPlayHandler(lesson)}
+                          sx={{ borderRadius: 0, mt: 1 }}
+                        >
+                          Play
+                        </Button>
+                      ) : (
+                        <Typography color="error" variant="body2" mt={1}>
+                          Locked
+                        </Typography>
+                      )} */}
+                    </CardContent>
+                  </Card>
+                </CardActionArea>
+              </Grid>
+            );
+          })}
       </Grid>
     </>
   );

@@ -107,30 +107,17 @@ import { styled } from '@mui/material/styles';
     }));
 
 const VideoPlayer = ({ url, lessonId, onComplete }) => {
-  const [completed, setCompleted] = useState(false);
-
-  const handleProgress = (progress) => {
-    if (!completed && progress.played === 1) {
-      setCompleted(true);
-      if (onComplete) {
-        onComplete(lessonId);
-      }
-    }
-  };
-
-
 
   return (
-
     <>
     
     <StyledReactPlayer
+     onEnded={() => onComplete(lessonId)}
       url={url}
       controls
       width="70%"
       height="auto"
       playing={false}
-      onProgress={handleProgress}
     />
     </>
     // <>
