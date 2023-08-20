@@ -206,7 +206,6 @@ const LessonPlayScreen = () => {
       res.data.completedLessons.map((lesson, i)=> {
         // completed.push(lesson._id)
         completed[i] = lesson._id
-        setCompletedIndex(i)
       } )
       setCompletedLessons(completed)
     }
@@ -219,7 +218,7 @@ const LessonPlayScreen = () => {
     if(completedLessons.includes(lessonId))return
 
     const res = await userApi.post('progress', {userId, courseId, lessonId})
-    console.log(res);
+    console.log(res, 'am completed resppppppppppppp');
     setCompletedLessons(res.data.userProgress.completedLessons)
   }
 
@@ -254,7 +253,6 @@ const LessonPlayScreen = () => {
             des={"p"}
             onPlayHandler={playHandler}
             completed = {completedLessons}
-            // completedIndex ={completedIndex}
           />
         </Box>
       </Box>

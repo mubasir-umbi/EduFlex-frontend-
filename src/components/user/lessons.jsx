@@ -24,12 +24,11 @@ const lessons = ({
 }) => {
   const [lessons, setLessons] = useState([]);
   const [completedIndex, setCompletedIndex] = useState();
-
+console.log(completed, 'completeddddd');
   useEffect(() => {
-    setCompletedIndex(completed.length-1)
+    setCompletedIndex(completed?.length)
   }, [completedIndex,completed ])
 
-console.log(completedIndex, 'iiiiiiiiiiiiiii');
   useEffect(() => {
     const loadLessons = async () => {
       try {
@@ -44,13 +43,13 @@ console.log(completedIndex, 'iiiiiiiiiiiiiii');
     loadLessons();
   }, [courseId]);
 
-  const percentage = ((completed.length ) / lessons.length) * 100;
+  const percentage = ((completed?.length ) / lessons?.length) * 100;
   const formattedPercentage = percentage.toFixed(2);
 
   return (
     <>
       <Grid item xs={12} md={6}>
-        <Box
+        {!status && <Box
           border={1}
           p={2}
           mb={2}
@@ -76,15 +75,15 @@ console.log(completedIndex, 'iiiiiiiiiiiiiii');
             ></Box>
           </CircularProgress>
           <Typography style={{ marginLeft: 25 }}>
-            Completed: {completed.length } of {lessons.length} (
+            Completed: {completed?.length } of {lessons.length} (
             {formattedPercentage}%)
           </Typography>
-        </Box>
+        </Box>}
 
         {lessons
           .sort((a, b) => a.lessonNumber - b.lessonNumber)
           .map((lesson, index) => {
-            const isCompleted = completed.includes(lesson._id);
+            const isCompleted = completed?.includes(lesson._id);
             const isUnlocked = index <= completedIndex; 
           console.log(isUnlocked, completedIndex, 'unlockkkk');
 

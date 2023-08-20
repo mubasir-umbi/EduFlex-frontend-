@@ -1,5 +1,6 @@
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
-const baseQuery = fetchBaseQuery({ baseUrl: 'https://eduflex.site' });
+// https://eduflex.site
+const baseQuery = fetchBaseQuery({ baseUrl: '' });
 
 export const apiSlice = createApi({
   baseQuery,
