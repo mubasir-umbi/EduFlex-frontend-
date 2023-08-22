@@ -24,6 +24,7 @@ const lessons = ({
 }) => {
   const [lessons, setLessons] = useState([]);
   const [completedIndex, setCompletedIndex] = useState();
+  
 console.log(completed, 'completeddddd');
   useEffect(() => {
     setCompletedIndex(completed?.length)
@@ -124,37 +125,6 @@ console.log(completed, 'completeddddd');
                       <Typography variant={des} color="text.secondary" m={0}>
                         {lesson.description}
                       </Typography>
-                      {/*   
-                  <Button
-                    disabled={status}
-                    size="small"
-                    variant="outlined"
-                    onClick={() => onPlayHandler(lesson)}
-                    sx={{ borderRadius: 0, mt: 1 }}
-                  >
-                    Play
-                  </Button> */}
-                      {/* {isUnlocked ? (
-                        isCompleted ? (
-                          <Button
-                            disabled={status}
-                            size="small"
-                            variant="outlined"
-                            onClick={() => onPlayHandler(lesson)}
-                            sx={{ borderRadius: 0, mt: 1 }}
-                          >
-                            Play
-                          </Button>
-                        ) : (
-                          <Typography  variant="body2" mt={1}>
-                            <LockIcon/>
-                          </Typography>
-                        )
-                      ) : (
-                        <Typography  variant="body2" mt={1}>
-                          <LockIcon/>
-                        </Typography>
-                      )}{" "} */}
 
                       {isUnlocked && <Button
                             disabled={status}
@@ -168,21 +138,7 @@ console.log(completed, 'completeddddd');
                       {!isUnlocked &&  <Typography  variant="body2" mt={1}>
                           <LockIcon style={{ fontSize: '16px' }}/>
                         </Typography>}
-                      {/* {isCompleted ? (
-                        <Button
-                          disabled={status}
-                          size="small"
-                          variant="outlined"
-                          onClick={() => onPlayHandler(lesson)}
-                          sx={{ borderRadius: 0, mt: 1 }}
-                        >
-                          Play
-                        </Button>
-                      ) : (
-                        <Typography color="error" variant="body2" mt={1}>
-                          Locked
-                        </Typography>
-                      )} */}
+                     
                     </CardContent>
                   </Card>
                 </CardActionArea>
