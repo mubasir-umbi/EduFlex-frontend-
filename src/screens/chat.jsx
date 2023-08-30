@@ -11,18 +11,26 @@ import { styles } from "../components/chat";
 
 const ChatUI = ({ messages, handleSendMessage, sender }) => {
   const [message, setMessage] = useState("");
-console.log(sender, '/>>>>>>>>>>>>>>>>>>>>>>>>');
+  // const chatContainerRef = useRef(null);
+
   const {userInfo} = useSelector(state => state.auth)
+
+  // useEffect(() => {
+  //   // Scroll to the last message when messages update
+  //   if (chatContainerRef.current) {
+  //     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  //   }
+  // }, [messages]);
+
  
 
   return (
     <div style={styles.container}>
-      <Paper style={styles.paper}>
+      <Paper style={styles.paper}  >
         {messages.map((msg, index) =>
         
           msg?.sender?._id === sender ? (
             <>
-            {console.log(msg, 'am from trueeeeeee')}
             <ChatMessage
               key={index}
               message={msg.message}
@@ -32,7 +40,6 @@ console.log(sender, '/>>>>>>>>>>>>>>>>>>>>>>>>');
             </>
           ) : (
             <>
-            {/* {console.log(msg , 'am from falseeeeee')} */}
             <ChatMessage
               key={index}
               message={msg.message}

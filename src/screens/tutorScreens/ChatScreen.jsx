@@ -43,6 +43,7 @@ const ChatScreen = () => {
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([])
+  const [user, setUser] = useState('')
   const [conversation, setConversation] = useState("");
 
   const {tutorInfo} = useSelector(state => state.tutorAuth)
@@ -70,7 +71,8 @@ const ChatScreen = () => {
           const res = await chatApi.get(`message?id=${conversation}`)
           if(res){
             setMessages(res.data)
-            console.log(res.data, 'am all message');
+            setUser(res.data[0].sender._id)
+            console.log(res.data[0].sender._id, 'am all message');
             socket.emit('join-chat', conversation)
           }
         } catch (error) {
@@ -154,7 +156,7 @@ const ChatScreen = () => {
       >
         <UserList users={users} getChatHistory={LoadAllMessage} />
         <Box width={'70%'}>
-            <Chat  messages={messages} handleSendMessage={handleSendMessage} sender={sender}/>
+            <Chat  messages={messages} handleSendMessage={handleSendMessage} sender={user}/>
         </Box>
       </Box>
     </SideBar>

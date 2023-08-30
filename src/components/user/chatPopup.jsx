@@ -31,7 +31,6 @@ export default function ChatPopUp({tutorId, tutor}) {
   const senderId = userInfo._id
   const recieverId = tutorId
   const sender = userInfo._id;
-  console.log(sender, '{{{{{{{{{{{{{{{{{{{{{{{{{');
 
 
   React.useEffect(() => {
